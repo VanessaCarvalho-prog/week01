@@ -1,0 +1,75 @@
+DEFINE Door USING _Id
+  SET id TO _Id
+  SET status TO 'closed'
+ENDDEFINE
+
+DEFINE Elevator USING _ID AND amountOfFloors
+  SET id TO _Id
+  SET status TO "Online"
+  SET direction TO null
+  SET currentFloor TO 1
+  SET door TO NEW Door WITH _Id
+  SET amountOfFloors TO amountOfFloors
+  SET floorRequestButtonList TO EMPTY ARRAY
+  SET floorRequestList TO EMPTY ARRAY   
+ENDDEFINE
+
+
+SEQUENCE MoveElevator USING _moveElevator
+F
+
+ENDSEQUENCE
+
+
+DEFINE floorRequestButton USING _ID AND _Floor
+    SET id TO _ID
+    SET status TO 'OFF'
+    SET floor TO _Floor
+ENDDEFINE
+
+DEFINE Column USING -ID, amountFloors and amountOfElevators
+SET ID TO _Id
+SET status TO 1
+SET elevatorList TO null
+SET callButtonsList to null
+ENDDEFINE
+
+SEQUENCE RequestFloor USING _requestedFloor and direction
+Trouver un ascenseur disponible
+Faire bouger cet ascenseur jusqu’à l’utilisateur
+Gérer les portes
+Retourner l’ascenseur à la fin de la fonction, pour être utilisé par la méthode requestFloor de cet ascenseur.
+ENDSEQUENCE
+
+SEQUENCE findElevator USING requestedFloor AND direction
+  Chercher status 'on'
+  Utiliser moveElevator
+  Ouvrir et fermer la porte
+  Apres utiliser le requestFloor
+
+
+ENDSEQUENCE
+
+
+
+DEFINE callButton USING _id, _direction and floor
+SET id TO _id
+SET status TO "OFF"
+SET floor TO _floor
+SET direction to null
+
+
+
+
+// SEQUENCE  requestFloor USING numberFloor
+//  SET currentFloor TO  moveElevator
+//  SET door TO Open
+// ENDSEQUENCE
+
+// SEQUENCE Open USING _open
+//   Open the door
+// ENDSEQUENCE
+
+// SEQUENCE Closed UISNG _CLOSE
+//   Close the door
+// ENDSEQUENCE

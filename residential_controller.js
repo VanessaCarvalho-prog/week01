@@ -18,7 +18,7 @@ class Door{
 class Elevator{
     constructor(_id, amountOfFloors){
         this.id = _id
-        this.status = 'online'
+        this.status = 'idle'
         this.direction;
         this.currentFloor = 1
         this.door = new Door(_id)
@@ -96,19 +96,42 @@ class Column {
         }
 
         }
-    // requestElevator(requestedFloor, direction){
-    //     console.log(requestedFloor)
-    // }
+    }    
+    findElevator(_requestFloor, _direction){
+        let elevatorsIdle = []
+        let elevatorsBusySameDirection = []
+        let elevatorBusyOtherDirection = []
+        this.elevatorsList.forEach(function(elevator){
+            if(elevator.status == 'idle'){
+                elevatorsIdle.push(elevator)
+            }else {
+                if(elevator.direction == _direction){
+                    elevatorsBusySameDirection.push(elevator)
+                }else {
+                    elevatorBusyOtherDirection.push(elevator)
+                }                 
+            }
+        })
+        let bestElevator = elevatorsBusySameDirection.pop[]
+          elevatorsBusySameDirection.forEach(elevator, index){
+           var difFloor = Math.abs(_requestFloor - elevator.currentFloor)
+           var difFloor = Math.abs(_requestFloor - elevator.currentFloor)
+           if(difFloor < bestFloor){
+               bestFloor
+           }
+       }     
+        
+
+      
+        
+    }
     
     
   
-    }
 }
+
 let column = new Column(1,10,2)
-console.log(column)
-
-    
-
+column.findElevator('up', 8)
 
 
 
@@ -177,3 +200,11 @@ console.log(column)
 
 //     let callButton = new CallButton(1,1,'up')
     //     let callButton = new CallButton(5,amountOfFloors,'down')
+
+
+
+
+     // requestElevator(requestedFloor, direction){
+    //     console.log(requestedFloor)
+    // }
+    

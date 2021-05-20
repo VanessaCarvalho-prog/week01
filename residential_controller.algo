@@ -1,6 +1,14 @@
 DEFINE Door USING _Id
   SET id TO _Id
   SET status TO 'closed'
+
+ SEQUENCE Open USING _open
+  Open the door
+ENDSEQUENCE
+
+SEQUENCE Closed UISNG _CLOSE
+  Close the door
+ENDSEQUENCE
 ENDDEFINE
 
 DEFINE Elevator USING _ID AND amountOfFloors
@@ -15,8 +23,9 @@ DEFINE Elevator USING _ID AND amountOfFloors
 ENDDEFINE
 
 
-SEQUENCE MoveElevator USING _moveElevator
-F
+SEQUENCE MoveElevator USING _destination
+
+
 
 ENDSEQUENCE
 
@@ -41,13 +50,8 @@ Gérer les portes
 Retourner l’ascenseur à la fin de la fonction, pour être utilisé par la méthode requestFloor de cet ascenseur.
 ENDSEQUENCE
 
-SEQUENCE findElevator USING requestedFloor AND direction
-  Chercher status 'on'
-  Utiliser moveElevator
-  Ouvrir et fermer la porte
-  Apres utiliser le requestFloor
-
-
+SEQUENCE findElevator USING _requestedFloor AND _direction
+ 
 ENDSEQUENCE
 
 
@@ -66,10 +70,4 @@ SET direction to null
 //  SET door TO Open
 // ENDSEQUENCE
 
-// SEQUENCE Open USING _open
-//   Open the door
-// ENDSEQUENCE
-
-// SEQUENCE Closed UISNG _CLOSE
-//   Close the door
-// ENDSEQUENCE
+//

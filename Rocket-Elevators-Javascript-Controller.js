@@ -192,5 +192,4 @@ column.elevatorsList[1].currentFloor = 6  //(elevatorsIdle)
 var bestElevator = column.findElevator(10, 'down')
 console.log(bestElevator)
 
-
-
+module.exports = {Column, Elevator, CallButton, FloorRequestButton, Door}

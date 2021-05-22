@@ -1,7 +1,7 @@
 DEFINE Door USING _Id
   SET id TO _Id
   SET status TO 'closed'
-
+ENDDEFINE
  SEQUENCE Open USING _open
   Open the door
 ENDSEQUENCE
@@ -9,7 +9,8 @@ ENDSEQUENCE
 SEQUENCE Closed UISNG _CLOSE
   Close the door
 ENDSEQUENCE
-ENDDEFINE
+
+
 
 DEFINE Elevator USING _ID AND amountOfFloors
   SET id TO _Id
@@ -24,11 +25,12 @@ ENDDEFINE
 
 
 SEQUENCE MoveElevator USING _destination
-
-
-
+USING WHILE TO  _destination using make currentFloor 
 ENDSEQUENCE
 
+SEQUENCE requestFloor USING _destination
+---------------- 
+ENDSEQUENCE
 
 DEFINE floorRequestButton USING _ID AND _Floor
     SET id TO _ID
@@ -36,31 +38,40 @@ DEFINE floorRequestButton USING _ID AND _Floor
     SET floor TO _Floor
 ENDDEFINE
 
-DEFINE Column USING -ID, amountFloors and amountOfElevators
-SET ID TO _Id
-SET status TO 1
-SET elevatorList TO null
-SET callButtonsList to null
+DEFINE CallButton USING _ID AND _Floor AND _direction
+    SET id TO _ID
+    SET status TO 'OFF'
+    SET floor TO _Floor
+    SET direction TO _direction 
+
 ENDDEFINE
 
-SEQUENCE RequestFloor USING _requestedFloor and direction
-Trouver un ascenseur disponible
-Faire bouger cet ascenseur jusqu’à l’utilisateur
-Gérer les portes
-Retourner l’ascenseur à la fin de la fonction, pour être utilisé par la méthode requestFloor de cet ascenseur.
+DEFINE Column USING -ID, amountFloors and amountOfElevators
+SET ID TO _Id
+SET status TO 'online'
+SET elevatorList TO EMPTY ARRAY
+SET amountFloors TO amountFloors
+SET amountOfElevators TO amountOfElevators
+
+ENDDEFINE
+
+SEQUENCE creation elevatorList USING amountOfElevators
+
 ENDSEQUENCE
 
-SEQUENCE findElevator USING _requestedFloor AND _direction
- 
+SEQUENCE creation CallButton USING amountOfFloors
+
+ENDSEQUENCE
+
+SEQUENCE findElevator USING _requestedFloor and direction
+
 ENDSEQUENCE
 
 
 
-DEFINE callButton USING _id, _direction and floor
-SET id TO _id
-SET status TO "OFF"
-SET floor TO _floor
-SET direction to null
+
+
+
 
 
 

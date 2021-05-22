@@ -14,7 +14,7 @@ ENDSEQUENCE
 
 DEFINE Elevator USING _ID AND amountOfFloors
   SET id TO _Id
-  SET status TO "Online"
+  SET status TO "idle"
   SET direction TO null
   SET currentFloor TO 1
   SET door TO NEW Door WITH _Id
@@ -25,10 +25,16 @@ ENDDEFINE
 
 
 SEQUENCE MoveElevator USING _destination
-USING WHILE TO  _destination using make currentFloor 
+SET status TO busy 
+use while to find the distance between currentFloor AND _destination
+Go TO requestFloor
 ENDSEQUENCE
 
-SEQUENCE requestFloor USING _destination
+SEQUENCE requestFloor USING _requestedFloor
+Close the door
+SET moveElevator  to  _requestedFloor,
+Open door close the door until the user enters 
+SET status TO 'IDLE'
 ---------------- 
 ENDSEQUENCE
 
@@ -50,20 +56,34 @@ DEFINE Column USING -ID, amountFloors and amountOfElevators
 SET ID TO _Id
 SET status TO 'online'
 SET elevatorList TO EMPTY ARRAY
+SET CallButtonList TO EMPTY ARRAY
 SET amountFloors TO amountFloors
 SET amountOfElevators TO amountOfElevators
-
 ENDDEFINE
 
-SEQUENCE creation elevatorList USING amountOfElevators
+SEQUENCE  elevatorList USING amountOfElevators
+Create elevatorList to amountOfElevators
 
 ENDSEQUENCE
 
-SEQUENCE creation CallButton USING amountOfFloors
+SEQUENCE  CallButtonList USING amountOfFloors
+Create CallButtonList to amountOfFloors
 
 ENDSEQUENCE
 
 SEQUENCE findElevator USING _requestedFloor and direction
+Create ARRAY TO elevatorsIdle
+Create ARRAY TO elevatorsBusySameDirection
+Create ARRAY TO elevatorBusyOtherDirection
+Separate the elevators in the three variables according to elevatorlist
+Look in the list elevatorsBusySameDirection for the closest elevator
+Look in the list elevatorsIdle for the closest elevator
+
+
+SEQUENCE requestElevator USING _requestedFloor and direction
+FIND the best elevator using findElevator
+CALL the elevator using moveElevator
+Open door
 
 ENDSEQUENCE
 
@@ -76,9 +96,3 @@ ENDSEQUENCE
 
 
 
-// SEQUENCE  requestFloor USING numberFloor
-//  SET currentFloor TO  moveElevator
-//  SET door TO Open
-// ENDSEQUENCE
-
-//
